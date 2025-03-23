@@ -13,7 +13,6 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
       min-height: 100vh;
       color: #fff;
     }
@@ -22,6 +21,7 @@
       font-size: 2em;
       color: #00ffc6;
       text-shadow: 0 0 10px #00ffc6;
+      text-align: center;
     }
     .container {
       display: grid;
@@ -55,10 +55,60 @@
         box-shadow: 0 0 10px rgba(0,255,198,0.5);
       }
     }
+    .search-box {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 90%;
+      max-width: 600px;
+    }
+    .search-box input, .search-box select {
+      padding: 10px;
+      margin: 10px;
+      width: 80%;
+      max-width: 500px;
+      border-radius: 8px;
+      border: none;
+      font-size: 1em;
+    }
+    .search-box button {
+      padding: 10px 20px;
+      background: #00ffc6;
+      border: none;
+      border-radius: 8px;
+      color: #000;
+      font-size: 1em;
+      margin-top: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #00ffc6;
+      transition: 0.3s;
+    }
+    .search-box button:hover {
+      box-shadow: 0 0 20px #00ffc6;
+    }
   </style>
 </head>
 <body>
   <h1>Streaming Hub</h1>
+
+  <!-- SEARCH BOX -->
+  <div class="search-box">
+    <input type="text" id="searchQuery" placeholder="Cerca un contenuto..." />
+    <select id="siteSelect">
+      <option value="https://streamingcommunity.hiphop/search?q=">Streaming Community</option>
+      <option value="https://altadefinizionepremium.com/search?s=">Alta Definizione</option>
+      <option value="https://casacinema.help/?story=" data-suffix="+&do=search&subaction=search">Casa Cinema</option>
+      <option value="https://filmsenzalimiti.food/?story=" data-suffix="&do=search&subaction=search">Film Senza Limiti</option>
+      <option value="https://cb01new.college/?s=">CB01 New</option>
+      <option value="https://www.seriehd.sbs/search/">Serie HD</option>
+      <option value="https://toonitalia.xyz/?s=">Toon Italia</option>
+      <option value="https://www.animeworld.ac/search?keyword=">Anime World</option>
+    </select>
+    <button onclick="doSearch()">Cerca</button>
+  </div>
+
+  <!-- BUTTONS -->
   <div class="container">
     <a class="button" href="https://streamingcommunity.hiphop/" target="_blank">Streaming Community</a>
     <a class="button" href="https://altadefinizionepremium.com/" target="_blank">Alta Definizione</a>
@@ -69,5 +119,19 @@
     <a class="button" href="https://toonitalia.xyz/" target="_blank">Toon Italia</a>
     <a class="button" href="https://www.animeworld.ac/" target="_blank">Anime World</a>
   </div>
+
+  <script>
+    function doSearch() {
+      const query = document.getElementById("searchQuery").value.trim();
+      const select = document.getElementById("siteSelect");
+      const url = select.value;
+      const suffix = select.options[select.selectedIndex].dataset.suffix || "";
+      if (query !== "") {
+        window.open(url + encodeURIComponent(query) + suffix, "_blank");
+      } else {
+        alert("Inserisci un termine di ricerca.");
+      }
+    }
+  </script>
 </body>
 </html>
